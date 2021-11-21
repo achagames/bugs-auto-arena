@@ -6,42 +6,72 @@ public class FightManager : MonoBehaviour
 {
     public Team player;
     public Team enemy;
-
+    public float fightDelay = 5f;
     List<CardController> playerCards;
     List<CardController> enemyCards;
 
     int currentSlot = 0;
-
+    bool fightOver = false;
     // Start is called before the first frame update
     void Start()
     {
-        List<CardController> playerTeam = new List<CardController>();
-        List<CardController> enemyTeam = new List<CardController>();
+        playerCards = player.GetCards();
+        enemyCards = enemy.GetCards();
+        print(playerCards);
+        print(enemyCards);
+        StartCoroutine(FightAlgorithm());
     }
 
     // Update is called once per frame
     void Update()
     {
-        playerCards = player.GetCards();
-        enemyCards = enemy.GetCards();
+        
 
-
-        FightAlgorithm();
+        //if (!fightOver)
+        //{
+        //    FightAlgorithm();
+        //}
+        
 
     }
 
-    public void FightAlgorithm()
+    public IEnumerator FightAlgorithm()
     {
-        if (playerCards[currentSlot].AttacksLeft > 0)
+        yield return new WaitForSeconds(fightDelay);
+        if (!CheckDeath())
         {
-          // int playerPower = playerTeam[playerNr].GetPower();
-           // int enemyPower = enemyTeam[playerNr].GetPower();
-            //enemyTeam[playerNr].TakeDamage(playerPower);
-           // playerTeam[playerNr].TakeDamage(enemyPower);
+          int playerPower = playerCards[currentSlot].CurrentPower;
+          int enemyPower = enemyCards[currentSlot].CurrentPower;
 
-            playerCards[currentSlot].AttacksLeft--;
-            enemyCards[currentSlot].AttacksLeft--;
+
+            enemyCards[currentSlot].TakeDamage(playerPower);
+
+            playerCards[currentSlot].TakeDamage(enemyPower);
+
+
+        }
+        else
+        {
+            if (currentSlot + 1 == Mathf.Max(playerCards.Count, enemyCards.Count))
+            {
+                fightOver = true;
+                StopCoroutine(FightAlgorithm());
+            }
+            else
+            {
+                currentSlot++;
+            }
         }
 
+        
+    }
+    private bool CheckDeath()
+    {
+        if (playerCards[currentSlot].CurrentPower > 0 || enemyCards[currentSlot].CurrentPower > 0)
+        {
+            return false;
+        }
+        else
+            return true;
     }
 }

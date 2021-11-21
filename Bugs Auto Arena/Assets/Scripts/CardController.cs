@@ -12,28 +12,29 @@ public class CardController : MonoBehaviour
     //public Image sprite;
     public TextMeshPro powerText;
 
-    public int AttacksLeft
+    private int currentPower;
+
+    public int CurrentPower
     {
-        get { return card.attacksLeft; }
-        set { card.attacksLeft = value; }
-    }
-    public int Power
-    {
-        get { return card.power; }
-        set { card.power = value; }
+        get { return currentPower; }
+        set { currentPower = value; }
     }
 
     private void Start()
     {
         nameText.text = card.name;
         powerText.text = card.power.ToString();
+        currentPower = card.power;
     }
-    
+    private void Update()
+    {
+        powerText.text = CurrentPower.ToString();
+    }
 
     public int TakeDamage(int dmg)
     {
-        card.power -= dmg;
-        return card.power;
+        CurrentPower -= dmg;
+        return CurrentPower;
     }
 }
 

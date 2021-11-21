@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526a21724edce174cad98d580a8d0ddc, type: 3}
   m_Name: Ant
   m_EditorClassIdentifier: 
-  attacksLeft: 1
   bugName: Ant
-  power: 2
+  power: 4
   trait: 1
