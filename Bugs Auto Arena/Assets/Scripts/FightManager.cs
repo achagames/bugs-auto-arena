@@ -10,68 +10,92 @@ public class FightManager : MonoBehaviour
     List<CardController> playerCards;
     List<CardController> enemyCards;
 
-    int currentSlot = 0;
-    bool fightOver = false;
-    // Start is called before the first frame update
+    private float timeSinceLastFight;
+    private int currentSlot = 0;
+    private bool fightOver = false;
+
+
     void Start()
     {
         playerCards = player.GetCards();
         enemyCards = enemy.GetCards();
-        print(playerCards);
-        print(enemyCards);
-        StartCoroutine(FightAlgorithm());
+      
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        
+        if (!fightOver && timeSinceLastFight > fightDelay)
+        {
+            FightAlgorithm();
+            timeSinceLastFight = 0;
+            
+        }
 
-        //if (!fightOver)
-        //{
-        //    FightAlgorithm();
-        //}
-        
-
+        timeSinceLastFight += Time.deltaTime;
     }
 
-    public IEnumerator FightAlgorithm()
+    public void FightAlgorithm()
     {
-        yield return new WaitForSeconds(fightDelay);
-        if (!CheckDeath())
+        CardController playerCard = playerCards[currentSlot];
+        CardController enemyCard = enemyCards[currentSlot];
+
+        if (playerCard.CurrentPower <= 0)
         {
-          int playerPower = playerCards[currentSlot].CurrentPower;
-          int enemyPower = enemyCards[currentSlot].CurrentPower;
-
-
-            enemyCards[currentSlot].TakeDamage(playerPower);
-
-            playerCards[currentSlot].TakeDamage(enemyPower);
-
-
+             playerCard = FindAliveMember(playerCards);
         }
-        else
+        if (enemyCard.CurrentPower <= 0)
         {
-            if (currentSlot + 1 == Mathf.Max(playerCards.Count, enemyCards.Count))
+             enemyCard = FindAliveMember(enemyCards);
+        }
+
+
+        if (playerCard != null)
+        {
+            if (enemyCard != null)
             {
-                fightOver = true;
-                StopCoroutine(FightAlgorithm());
+                fightOver = false;
             }
             else
             {
-                currentSlot++;
+                print("player won game");
+                fightOver = true;
+                return;
             }
         }
+        else
+        {
+            print("player lost game");
+            fightOver = true;
+            return;
+        }
 
+        print("Fight : " + playerCard.BugName + " vs " + enemyCard.BugName);
+
+        int playerPower = playerCard.CurrentPower;
+        int enemyPower = enemyCard.CurrentPower;
+
+        enemyCard.TakeDamage(playerPower);
+        playerCard.TakeDamage(enemyPower);
+
+        currentSlot++;
+        if (currentSlot >= Mathf.Max(playerCards.Count, enemyCards.Count))
+        {
+            currentSlot = 0;
+        }
         
     }
-    private bool CheckDeath()
+
+
+    private CardController FindAliveMember(List<CardController> members)
     {
-        if (playerCards[currentSlot].CurrentPower > 0 || enemyCards[currentSlot].CurrentPower > 0)
+        for (int i = 0; i < members.Count; i++)
         {
-            return false;
+            if (members[i].CurrentPower > 0)
+            {
+                return members[i];
+            }
         }
-        else
-            return true;
+        return null;
     }
 }

@@ -19,6 +19,10 @@ public class CardController : MonoBehaviour
         get { return currentPower; }
         set { currentPower = value; }
     }
+    public string BugName
+    {
+        get { return card.bugName; }
+    }
 
     private void Start()
     {
@@ -28,7 +32,11 @@ public class CardController : MonoBehaviour
     }
     private void Update()
     {
+        if (currentPower != card.power)
+        {
         powerText.text = CurrentPower.ToString();
+
+        }
     }
 
     public int TakeDamage(int dmg)
