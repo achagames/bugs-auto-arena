@@ -44,5 +44,10 @@ public class CardController : MonoBehaviour
         CurrentPower -= dmg;
         return CurrentPower;
     }
+
+    public void SetCard(Card newCard)
+    {
+        card = newCard;
+    }
 }
 

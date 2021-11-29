@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Ant
   m_EditorClassIdentifier: 
   bugName: Ant
-  power: 4
+  power: 2
   trait: 1
