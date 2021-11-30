@@ -13,6 +13,10 @@ public class Team : MonoBehaviour
     {
         return team;
     }
+    public void SetTeam(List<CardController> newTeam)
+    {
+        team = newTeam;
+    }
     public int GetSize()
     {
         return size;

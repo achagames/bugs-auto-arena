@@ -12,8 +12,9 @@ public class FightManager : MonoBehaviour
 
     private float timeSinceLastFight;
     private int currentSlot = 0;
-    private bool fightOver = false;
-
+    private bool fightOver = true;
+    private CardController playerCard;
+    private CardController enemyCard;
 
     void Start()
     {
@@ -37,8 +38,17 @@ public class FightManager : MonoBehaviour
 
     public void FightAlgorithm()
     {
-        CardController playerCard = playerCards[currentSlot];
-        CardController enemyCard = enemyCards[currentSlot];
+        
+        if (currentSlot < playerCards.Count)
+        {
+        playerCard = playerCards[currentSlot];
+
+        }
+
+        if (currentSlot < enemyCards.Count)
+        {
+         enemyCard = enemyCards[currentSlot];
+        }
 
         if (playerCard.CurrentPower <= 0)
         {
