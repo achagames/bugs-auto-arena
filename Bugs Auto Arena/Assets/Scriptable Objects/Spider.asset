@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Spider
   m_EditorClassIdentifier: 
   bugName: Spider
+  sprite: {fileID: 21300000, guid: 85bd3c3ee1e2f3444af4c98c2448ae76, type: 3}
   power: 6
   trait: 2

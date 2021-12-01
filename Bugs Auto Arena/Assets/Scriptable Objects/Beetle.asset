@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Beetle
   m_EditorClassIdentifier: 
   bugName: Beetle
+  sprite: {fileID: 21300000, guid: eefd6721279d53f4fa7fda513a294d9b, type: 3}
   power: 7
   trait: 0

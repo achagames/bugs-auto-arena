@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6799549834772931160
 Transform:
   m_ObjectHideFlags: 0
@@ -473,6 +473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 11400000, guid: 0f94e0be0c6ee7d4eaee4f1a7c36d99b, type: 2}
+  spriteRenderer: {fileID: 0}
   nameText: {fileID: 6799549835146607303}
   powerText: {fileID: 6799549834792742849}
 --- !u!61 &205172482504547096

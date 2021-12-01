@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class CardController : MonoBehaviour
 {
     public Card card;
-
+    public SpriteRenderer spriteRenderer;
     public TextMeshPro nameText;
     //public Image sprite;
     public TextMeshPro powerText;
@@ -27,6 +27,8 @@ public class CardController : MonoBehaviour
     private void Start()
     {
         nameText.text = card.name;
+        if(spriteRenderer != null)
+        spriteRenderer.sprite = card.sprite;
         powerText.text = card.power.ToString();
         currentPower = card.power;
     }
