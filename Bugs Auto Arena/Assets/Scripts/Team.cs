@@ -5,8 +5,6 @@ using UnityEngine;
 public class Team : MonoBehaviour
 {
     public List<CardController> team;
-    int size;
-
 
 
     public List<CardController> GetCards()
@@ -17,8 +15,5 @@ public class Team : MonoBehaviour
     {
         team = newTeam;
     }
-    public int GetSize()
-    {
-        return size;
-    }
+
 }

@@ -103,4 +103,9 @@ public class Shop : MonoBehaviour
         }
         return false;
     }
+    public void BackToShop()
+    {
+        RefreshShop();
+        RefreshPlayerCards();
+    }
 }
