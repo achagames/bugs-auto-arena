@@ -28,8 +28,14 @@ public class Shop : MonoBehaviour
         RefreshPlayerCards();
     }
 
-    private void RefreshShop()
+    public void RefreshShop()
     {
+        foreach (GameObject card in shopCards)
+        {
+            if(card != null)
+            Destroy(card);
+        }
+
         for (int i = 1; i < shopSlots.Length; i++)
         {
             int randomNr = Random.Range(0, allCards.Length);
@@ -44,9 +50,6 @@ public class Shop : MonoBehaviour
     
     private void RefreshPlayerCards()
     {
-
-
-
         for (int i = 1; i < playerSlots.Length; i++)
         {
 
@@ -84,7 +87,7 @@ public class Shop : MonoBehaviour
         
 
     }
-    public void SellCard(CardController card)
+    public bool SellCard(CardController card)
     {
         for (int i = 0; i < playerCards.Count; i++)
         {
@@ -95,9 +98,9 @@ public class Shop : MonoBehaviour
                 Destroy(card);
                 player.SetTeam(playerCards);
                 RefreshPlayerCards();
- 
+                return true;
             }
         }
-
+        return false;
     }
 }

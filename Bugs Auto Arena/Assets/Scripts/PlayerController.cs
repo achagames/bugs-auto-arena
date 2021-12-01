@@ -44,7 +44,12 @@ public class PlayerController : MonoBehaviour
                     }
                     if (hit.collider.gameObject.CompareTag("Sell"))
                     {
-                        shop.SellCard(selectedCard.GetComponent<CardController>());
+                        if (selectedCard.CompareTag("Card") && shop.SellCard(selectedCard.GetComponent<CardController>()))
+                        {
+                            Destroy(selectedCard);
+                            hasSelected = false;
+                            return;
+                        }
                     }
                 }
                     selectedCard.transform.position = originalPos;
@@ -56,7 +61,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                RaycastHit2D hit = Physics2D.Raycast(cam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+                RaycastHit2D hit = Physics2D.Raycast(cam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,Mathf.Infinity,selectableMask);
 
                 if (hit.collider != null)
                 {

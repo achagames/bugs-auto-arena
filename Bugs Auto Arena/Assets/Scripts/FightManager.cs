@@ -9,15 +9,19 @@ public class FightManager : MonoBehaviour
     public float fightDelay = 5f;
     List<CardController> playerCards;
     List<CardController> enemyCards;
+    public Transform playerSlotsParent;
+
 
     private float timeSinceLastFight;
     private int currentSlot = 0;
     private bool fightOver = true;
     private CardController playerCard;
     private CardController enemyCard;
+    private Transform[] playerSlots;
 
     void Start()
     {
+        playerSlots = playerSlotsParent.GetComponentsInChildren<Transform>();
         playerCards = player.GetCards();
         enemyCards = enemy.GetCards();
       
@@ -107,5 +111,30 @@ public class FightManager : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public void BeginCombat()
+    {
+
+        playerCards = player.GetCards();
+        enemyCards = enemy.GetCards();
+
+        PlacePlayerCards();
+    }
+    private void PlacePlayerCards()
+    {
+        for (int i = 1; i < playerSlots.Length; i++)
+        {
+
+            if (playerCards[i - 1] != null)
+            {
+
+                GameObject newCard = Instantiate(playerCards[i - 1].gameObject, playerSlots[i].position, Quaternion.identity, playerSlots[i]);
+                GameObject oldCard = playerCards[i - 1].gameObject;
+                playerCards[i - 1] = newCard.GetComponent<CardController>();
+                Destroy(oldCard.gameObject);
+            }
+
+        }
     }
 }
