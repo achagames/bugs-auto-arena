@@ -8,6 +8,7 @@ TagManager:
   - EmptyCard
   - ShopCard
   - Sell
+  - BattleCard
   layers:
   - Default
   - TransparentFX

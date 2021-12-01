@@ -86,6 +86,7 @@ public class FightManager : MonoBehaviour
         {
             print("player lost game");
             fightOver = true;
+            cameraManager.PanToShop();
             return;
         }
 
@@ -96,6 +97,8 @@ public class FightManager : MonoBehaviour
 
         enemyCard.TakeDamage(playerPower);
         playerCard.TakeDamage(enemyPower);
+        playerCard.Attack(enemyCard.transform.position);
+        enemyCard.Attack(playerCard.transform.position);
 
         currentSlot++;
         if (currentSlot >= Mathf.Max(playerCards.Count, enemyCards.Count))
@@ -137,6 +140,7 @@ public class FightManager : MonoBehaviour
             {
 
                 GameObject newCard = Instantiate(playerCards[i - 1].gameObject, playerSlots[i].position, Quaternion.identity, playerSlots[i]);
+                newCard.tag = "BattleCard";
                 GameObject oldCard = playerCards[i - 1].gameObject;
                 playerCards[i - 1] = newCard.GetComponent<CardController>();
                 Destroy(oldCard.gameObject);
@@ -153,6 +157,7 @@ public class FightManager : MonoBehaviour
             {
 
                 GameObject newCard = Instantiate(enemyCards[i - 1].gameObject, enemySlots[i].position, Quaternion.identity, enemySlots[i]);
+                newCard.tag = "BattleCard";
                 GameObject oldCard = enemyCards[i - 1].gameObject;
                 enemyCards[i - 1] = newCard.GetComponent<CardController>();
                 Destroy(oldCard.gameObject);

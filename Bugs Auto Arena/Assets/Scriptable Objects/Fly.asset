@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bugName: Fly
   sprite: {fileID: 21300000, guid: 682c5b8e28fe02a4487e422607461f2c, type: 3}
-  power: 3
+  power: 2
   trait: 2

@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
             {
                 RaycastHit2D hit = Physics2D.Raycast(cam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,Mathf.Infinity,selectableMask);
 
-                if (hit.collider != null)
+                if (hit.collider != null && !hit.collider.gameObject.CompareTag("BattleCard"))
                 {
                     originalPos = hit.transform.position;
                     selectedCard = hit.collider.gameObject;

@@ -17,6 +17,7 @@ public class Shop : MonoBehaviour
     private Transform[] playerSlots;
     private List<GameObject> shopCards;
     private List<CardController> playerCards;
+    private bool canRefresh = true;
 
     private void Start()
     {
@@ -28,7 +29,7 @@ public class Shop : MonoBehaviour
         RefreshPlayerCards();
     }
 
-    public void RefreshShop()
+    private void RefreshShop()
     {
         foreach (GameObject card in shopCards)
         {
@@ -57,6 +58,11 @@ public class Shop : MonoBehaviour
             {
 
             GameObject newCard = Instantiate(playerCards[i - 1].gameObject, playerSlots[i].position, Quaternion.identity, playerSlots[i]);
+                if (!newCard.CompareTag("EmptyCard"))
+                {
+                newCard.tag = "Card";
+
+                }
                 GameObject oldCard = playerCards[i - 1].gameObject;
                 playerCards[i - 1] = newCard.GetComponent<CardController>();
                 Destroy(oldCard.gameObject);
@@ -103,9 +109,18 @@ public class Shop : MonoBehaviour
         }
         return false;
     }
+    public void RefreshByButton()
+    {
+        if (canRefresh)
+        {
+            RefreshShop();
+            canRefresh = false;
+        }
+    }
     public void BackToShop()
     {
         RefreshShop();
         RefreshPlayerCards();
+        canRefresh = true;
     }
 }

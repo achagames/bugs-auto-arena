@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 526a21724edce174cad98d580a8d0ddc, type: 3}
-  m_Name: Ladybug
+  m_Name: Mantis
   m_EditorClassIdentifier: 
-  bugName: Ladybug
-  sprite: {fileID: 21300000, guid: 72b1de82fed7e514c8198568d9de9c0b, type: 3}
-  power: 3
+  bugName: Mantis
+  sprite: {fileID: 21300000, guid: 34d71e34cdef0c940a736e0e9ba4ef25, type: 3}
+  power: 8
   trait: 2
